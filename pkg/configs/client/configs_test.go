@@ -17,7 +17,8 @@ func TestJSONDecoding(t *testing.T) {
       "config": {
         "rules_files": {
           "recording.rules": ":scope_authfe_request_duration_seconds:99quantile = histogram_quantile(0.99, sum(rate(scope_request_duration_seconds_bucket{ws=\"false\",job=\"authfe\",route!~\"(admin|metrics).*\"}[5m])) by (le))\n"
-        }
+				},
+				"rule_format_version": 1
       }
     }
   }
@@ -28,8 +29,11 @@ func TestJSONDecoding(t *testing.T) {
 		"2": {
 			ID: 1,
 			Config: configs.Config{
-				RulesFiles: map[string]string{
-					"recording.rules": ":scope_authfe_request_duration_seconds:99quantile = histogram_quantile(0.99, sum(rate(scope_request_duration_seconds_bucket{ws=\"false\",job=\"authfe\",route!~\"(admin|metrics).*\"}[5m])) by (le))\n",
+				RulesConfig: configs.RulesConfig{
+					Files: map[string]string{
+						"recording.rules": ":scope_authfe_request_duration_seconds:99quantile = histogram_quantile(0.99, sum(rate(scope_request_duration_seconds_bucket{ws=\"false\",job=\"authfe\",route!~\"(admin|metrics).*\"}[5m])) by (le))\n",
+					},
+					FormatVersion: configs.RuleFormatV2,
 				},
 			},
 		},
