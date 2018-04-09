@@ -16,7 +16,7 @@ func TestJSONDecoding(t *testing.T) {
       "id": 1,
       "config": {
         "rules_files": {
-          "recording.rules": ":scope_authfe_request_duration_seconds:99quantile = histogram_quantile(0.99, sum(rate(scope_request_duration_seconds_bucket{ws=\"false\",job=\"authfe\",route!~\"(admin|metrics).*\"}[5m])) by (le))\n"
+          "recording.rules": "groups:\n- name: demo-service-alerts\n  interval: 15s\n  rules:\n  - alert: SomethingIsUp\n    expr: up == 1\n"
 				},
 				"rule_format_version": 1
       }
@@ -31,7 +31,7 @@ func TestJSONDecoding(t *testing.T) {
 			Config: configs.Config{
 				RulesConfig: configs.RulesConfig{
 					Files: map[string]string{
-						"recording.rules": ":scope_authfe_request_duration_seconds:99quantile = histogram_quantile(0.99, sum(rate(scope_request_duration_seconds_bucket{ws=\"false\",job=\"authfe\",route!~\"(admin|metrics).*\"}[5m])) by (le))\n",
+						"recording.rules": "groups:\n- name: demo-service-alerts\n  interval: 15s\n  rules:\n  - alert: SomethingIsUp\n    expr: up == 1\n",
 					},
 					FormatVersion: configs.RuleFormatV2,
 				},
