@@ -508,7 +508,6 @@ func (a storageClient) GetChunks(ctx context.Context, chunks []chunk.Chunk) ([]c
 	sp.LogFields(otlog.Int("chunks fetched", len(finalChunks)))
 	if err != nil {
 		sp.LogFields(otlog.String("error", err.Error()))
-		return nil, err
 	}
 
 	// Return any chunks we did receive: a partial result may be useful
